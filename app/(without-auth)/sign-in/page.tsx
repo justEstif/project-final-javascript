@@ -1,8 +1,14 @@
 "use client";
 import Link from "next/link";
+import firebase, { getUserDocId } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { AuthError } from "firebase/auth";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import useStore from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -14,14 +20,36 @@ const formSchema = z.object({
 type TForm = z.infer<typeof formSchema>;
 
 const page = ({}: Props) => {
+  const { signInUser, user } = useStore((state) => state);
+  const router = useRouter();
+  if (user) router.push("/");
+
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors },
   } = useForm<TForm>({ resolver: zodResolver(formSchema) });
 
-  const onSubmit: SubmitHandler<TForm> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<TForm> = async (data) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(
+        firebase.auth,
+        data.email,
+        data.password
+      );
+      const docId = await getUserDocId({ email: user.email });
+      signInUser({
+        id: user.uid,
+        docId: docId,
+        ...(user.email && { email: user.email }),
+      });
+    } catch (err) {
+      const typedError = err as AuthError;
+      setError("password", {
+        message: typedError.code,
+      });
+    }
   };
 
   return (
