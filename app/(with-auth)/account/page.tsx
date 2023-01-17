@@ -27,7 +27,6 @@ const page = ({ }: Props) => {
     getMovies();
   }, []);
 
-  if (!user) router.push("/sign-in");
   return (
     <div className="container mx-auto min-h-screen">
       <NavBar />
