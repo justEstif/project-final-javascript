@@ -8,13 +8,13 @@ import { requests } from "@/lib/tmdb";
 
 type Props = {};
 
-const Page = ({ }: Props) => {
+const Page = ({}: Props) => {
   const { user } = useStore((state) => state);
   const router = useRouter();
   if (!user) router.push("/sign-in");
 
   return (
-    <div className="min-h-screen grid grid-rows-[700px_minmax(1fr)]">
+    <div className="min-h-screen">
       <Hero>
         <NavBar />
       </Hero>

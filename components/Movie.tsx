@@ -38,15 +38,13 @@ const Movie = ({ movie }: TProps) => {
   };
 
   return (
-    <div className="overflow-hidden relative w-full h-96 group">
+    <div className="overflow-hidden relative group">
       <Image
         src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
         alt={`https://image.tmdb.org/t/p/original/${movie?.title}` || "Poster"}
         className="block object-cover w-full"
-        fill={true}
-        sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+        width={300}
+        height={300}
       />
       <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100">
         <button onClick={handleClick}>

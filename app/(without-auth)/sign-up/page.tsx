@@ -4,9 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import firebase from "@/lib/firebase";
-import { AuthError } from "firebase/auth";
+import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import useStore from "@/lib/store";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +18,7 @@ const formSchema = z.object({
 
 type TForm = z.infer<typeof formSchema>;
 
-const page = ({ }: Props) => {
+const Page = ({}: Props) => {
   const router = useRouter();
   const { signInUser, user } = useStore((state) => state);
   if (user) router.push("/");
@@ -102,4 +101,4 @@ const page = ({ }: Props) => {
   );
 };
 
-export default page;
+export default Page;

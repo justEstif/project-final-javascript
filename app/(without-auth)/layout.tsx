@@ -12,7 +12,6 @@ const layout = ({ children }: Props) => {
           <Link href="/">Netflix</Link>
         </button>
       </header>
-
       <main className="container mx-auto max-w-md">{children}</main>
     </div>
   );

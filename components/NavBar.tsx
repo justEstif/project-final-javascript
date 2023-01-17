@@ -11,7 +11,7 @@ const NavBar = ({ }: Props) => {
       >
         Netflix
       </Link>
-      <div>
+      <div className="flex gap-4 justify-between items-center">
         <Link href="/account" className="text-lg text-red-700">
           Account
         </Link>

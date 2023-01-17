@@ -19,7 +19,7 @@ const formSchema = z.object({
 
 type TForm = z.infer<typeof formSchema>;
 
-const page = ({}: Props) => {
+const Page = ({}: Props) => {
   const { signInUser, user } = useStore((state) => state);
   const router = useRouter();
   if (user) router.push("/");
@@ -99,4 +99,4 @@ const page = ({}: Props) => {
   );
 };
 
-export default page;
+export default Page;

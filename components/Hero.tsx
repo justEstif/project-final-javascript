@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { requests, getMoviesFromUrl, movieGenres, TMovie } from "@/lib/tmdb";
+import Image from "next/image";
 
 type Props = {
   children: React.ReactNode;
@@ -29,21 +30,23 @@ const Hero = ({ children }: Props) => {
     }, 40000);
     return () => clearInterval(interval);
   });
-
   return (
-    <div
-      style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
-      }}
-      className="bg-center bg-no-repeat bg-cover"
-    >
-      {children}
-      <div className="container py-4 mx-auto text-xl text-white">
-        <h1 className="text-4xl text-font-bold">{movie?.title}</h1>
-        <p>{getGenre(movie)}</p>
-        <p>Released: {movie?.release_date}</p>
-        <p>Rating: {movie?.vote_average}</p>
-        <p>{movie?.overview}</p>
+    <div className="overflow-hidden relative w-full h-[500px] group">
+      <Image
+        src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+        alt={`https://image.tmdb.org/t/p/original/${movie?.title}` || "Poster"}
+        className="block object-cover w-full"
+        fill={true}
+      />
+      <div className="absolute top-0 right-0 w-full">{children}</div>
+      <div className="container mx-auto">
+        <div className="absolute bottom-0 mx-auto">
+          <h1 className="text-4xl text-font-bold">{movie?.title}</h1>
+          <p>{getGenre(movie)}</p>
+          <p>Released: {movie?.release_date}</p>
+          <p>Rating: {movie?.vote_average}</p>
+          <p className="max-w-lg">{movie?.overview}</p>
+        </div>
       </div>
     </div>
   );

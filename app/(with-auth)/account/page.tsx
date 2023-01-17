@@ -10,7 +10,7 @@ import { nanoid } from "nanoid";
 
 type Props = {};
 
-const page = ({ }: Props) => {
+const Page = ({}: Props) => {
   const { user } = useStore((state) => state);
   const router = useRouter();
   if (!user) router.push("/sign-in");
@@ -39,4 +39,4 @@ const page = ({ }: Props) => {
   );
 };
 
-export default page;
+export default Page;
