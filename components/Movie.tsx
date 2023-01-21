@@ -25,7 +25,7 @@ const Movie = ({ movie }: TProps) => {
       const likedMovies: number[] = await getLikedMovies(docId);
       if (likedMovies) setLiked(likedMovies.includes(movieId));
     };
-    liked({ movieId: movie.id, docId: user?.docId || "" });
+    user && liked({ movieId: movie.id, docId: user?.docId || "" });
   }, []);
 
   const handleClick = async () => {
@@ -47,13 +47,17 @@ const Movie = ({ movie }: TProps) => {
         height={300}
       />
       <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100">
-        <button onClick={handleClick}>
-          {liked ? (
-            <HeartIcon className="w-6 h-6 text-red-600" />
-          ) : (
-            <HeartIcon className="w-6 h-6 text-gray-400" />
-          )}
-        </button>
+        {user ? (
+          <button onClick={handleClick}>
+            {liked ? (
+              <HeartIcon className="w-6 h-6 text-red-600" />
+            ) : (
+              <HeartIcon className="w-6 h-6 text-gray-400" />
+            )}
+          </button>
+        ) : (
+          <p>Login to like</p>
+        )}
       </div>
     </div>
   );

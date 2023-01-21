@@ -20,9 +20,8 @@ const formSchema = z.object({
 type TForm = z.infer<typeof formSchema>;
 
 const Page = ({}: Props) => {
-  const { signInUser, user } = useStore((state) => state);
+  const { signInUser } = useStore((state) => state);
   const router = useRouter();
-  if (user) router.push("/");
 
   const {
     handleSubmit,
@@ -44,6 +43,7 @@ const Page = ({}: Props) => {
         docId: docId,
         ...(user.email && { email: user.email }),
       });
+      router.push("/");
     } catch (err) {
       const typedError = err as AuthError;
       setError("password", {
@@ -51,7 +51,6 @@ const Page = ({}: Props) => {
       });
     }
   };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

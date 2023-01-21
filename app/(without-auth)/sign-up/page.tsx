@@ -20,8 +20,7 @@ type TForm = z.infer<typeof formSchema>;
 
 const Page = ({}: Props) => {
   const router = useRouter();
-  const { signInUser, user } = useStore((state) => state);
-  if (user) router.push("/");
+  const { signInUser } = useStore((state) => state);
 
   const {
     handleSubmit,
@@ -53,7 +52,6 @@ const Page = ({}: Props) => {
       });
     }
   };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
